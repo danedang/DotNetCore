@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using Api.Demo.Tests.Middleware.Extensions;
 
 namespace Api.Demo.Tests
 {
@@ -14,9 +15,17 @@ namespace Api.Demo.Tests
         
         public void ConfigureServices(IServiceCollection services)
         {
+
         }
+
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            // app.Run(async (context)=>{
+            //     await context.Response.WriteAsync("Hello world");
+            // });
+            app.UseHelloWorld();
+            app.UseHelloWorldInClass();
+            app.RunHelloWorld();
             
         }
     }
