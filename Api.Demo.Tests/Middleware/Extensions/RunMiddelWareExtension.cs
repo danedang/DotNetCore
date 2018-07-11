@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Http;
 namespace Api.Demo.Tests.Middleware.Extensions
 {
     
-    public static class  RunMiddelWareExtension
+    public static class  RunMiddelwareExtension
     {
 
         public static void  RunHelloWorld(this IApplicationBuilder app){
