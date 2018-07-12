@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Api.Demo.Tests.Middleware.Extensions;
 using Api.Demo.Tests.POCO;
+using Api.Demo.Tests.Service;
+using Api.Demo.Tests.Service.Impl;
 
 namespace Api.Demo.Tests
 {
@@ -16,7 +18,14 @@ namespace Api.Demo.Tests
         
         public void ConfigureServices(IServiceCollection services)
         {
-
+             
+            // services.AddScoped<IGreetingService,FlexibleGreetingServiceImpl>();
+            //此处必须添加类型
+            // services.AddScoped<IGreetingService>(factory=>{
+            //     return new FlexibleGreetingServiceImpl("moon");
+            // });
+            //此处必须添加类型
+            services.AddSingleton<IGreetingService>(new FlexibleGreetingServiceImpl("Mars"));
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -32,10 +41,13 @@ namespace Api.Demo.Tests
                 option.GreetAt = "GreetAt 1";
                 option.GreetTo ="GreetTo 1";
             });
-            app.UseHelloWorld();
+
+            //下面两个方法输出相同，都UseMiddleware<HelloWorldMiddleware>
+            app.UseHelloWorldMiddleware();
             app.UseHelloWorldInClass();
+
+            app.UseHelloWorld();            
             app.RunHelloWorld();
-            
         }
     }
 }

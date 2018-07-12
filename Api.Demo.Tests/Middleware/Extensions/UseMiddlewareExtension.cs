@@ -18,6 +18,13 @@ namespace Api.Demo.Tests.Middleware.Extensions
         *通过中间件组件类
         */
         public static IApplicationBuilder UseHelloWorldInClass(this IApplicationBuilder app){
+            return app.UseMiddleware<HelloDevelopersMiddleware>();
+        }
+
+        /*
+        *UseMiddleware
+         */
+        public static IApplicationBuilder UseHelloWorldMiddleware(this IApplicationBuilder app){
             return app.UseMiddleware<HelloWorldMiddleware>();
         }
 

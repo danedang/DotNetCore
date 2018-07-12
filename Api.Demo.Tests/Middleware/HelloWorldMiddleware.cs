@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Api.Demo.Tests.Service;
 using Microsoft.AspNetCore.Http;
 
 namespace Api.Demo.Tests.Middleware
@@ -9,8 +10,9 @@ namespace Api.Demo.Tests.Middleware
             this.next = next;
         }
 
-        public async Task Invoke(HttpContext context){
-            await context.Response.WriteAsync("Hello world (by middleware)\n");
+        public async Task Invoke(HttpContext context,IGreetingService service){
+            var message = service.Greet(" user IGreetingService");
+            await context.Response.WriteAsync(message);
             await this.next(context);
         }
     }
